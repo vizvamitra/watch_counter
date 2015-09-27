@@ -9,9 +9,9 @@ Gem::Specification.new do |spec|
   spec.authors       = ["vizvamitra"]
   spec.email         = ["vizvamitra@gmail.com"]
 
-  spec.summary       = %q{TODO: Write a short summary, because Rubygems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.summary       = %q{service for counting active video watches}
+  spec.description   = %q{can register watches and answer questions like "How many videos this customer watches now?" and "How many customers are currently watching this video?"}
+  spec.homepage      = "https://github.com/vizvamitra/watch_counter"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org by setting 'allowed_push_host', or
@@ -27,12 +27,12 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_runtime_dependency "sinatra"
-  spec.add_runtime_dependency "sqlite3"
-  spec.add_runtime_dependency "puma"
+  spec.add_runtime_dependency "sinatra", "~> 1.4"
+  spec.add_runtime_dependency "sqlite3", "~> 1.3"
+  spec.add_runtime_dependency "puma", "~> 2.14"
 
   spec.add_development_dependency "bundler", "~> 1.9"
   spec.add_development_dependency "rake", "~> 10.0"
-  spec.add_development_dependency "cucumber-sinatra"
-  spec.add_development_dependency "timecop"
+  spec.add_development_dependency "cucumber-sinatra", "~> 0.5"
+  spec.add_development_dependency "timecop", "~> 0.8"
 end

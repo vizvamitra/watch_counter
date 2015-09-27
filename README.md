@@ -1,34 +1,96 @@
 # WatchCounter
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/watch_counter`. To experiment with that code, run `bin/console` for an interactive prompt.
+This gem is my solution for the test task given to me during job placement. Full text of the task (in russian) can be found [here](wiki/task-definition).
 
-TODO: Delete this and the text above, and describe your gem
+WatchCounter is a microservice that can help you to count active watches of your videos. It was developed to do three things:
+
+- To register active watches.
+- To answer to "How many videos this customer watches now?"
+- To answer to "How many customers are currently watching this video?"
+
+Service will store information about watches only for a short period of time (6 seconds by default), so you will need to continuously send messages to this service to indicate that video is still being watched.
 
 ## Installation
 
-Add this line to your application's Gemfile:
+    git clone git@github.com:vizvamitra/watch_counter.git
+    cd watch_counter
+    gem build watch_counter.gemspec
+    gem install watch_counter-0.1.0.gem
 
-```ruby
-gem 'watch_counter'
-```
+## How to start server
 
-And then execute:
+    Usage: watch_counter [options]
 
-    $ bundle
+    Available options:
+        -b, --bind HOSTNAME              Server hostname or IP address
+                                           Default: localhost)
+        -p, --port PORT                  Server port
+                                           Default: 4567
+        -s, --storage STORAGE            Storage
+                                           Available: sqlite, memory
+                                           Default: sqlite
+        -t, --stale-interval SECONDS     Interval of time to remember watches
+                                           Default: 6
 
-Or install it yourself as:
+    Storage-specific options:
+        -d, --database PATH              Location of SQLite database
+                                           For sqlite storage only
+                                           Default: :memory:
+        -h, --help                       Show this message
+        -v, --version                    Show gem version
 
-    $ gem install watch_counter
+## API
 
-## Usage
+Web API has 3 endpoints:
 
-TODO: Write usage instructions here
+#### POST /watches
 
-## Development
+A place to send watch events.
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `bin/console` for an interactive prompt that will allow you to experiment.
+###### Arguments
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release` to create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+|    Argument |       Example | Required |
+| ----------- | ------------- | -------- |
+| customer_id | 5, customer_6 | Required |
+|    video_id |   3, video_15 | Required |
+
+**customer_id** and **video_id** may be either integers or strings.
+
+###### Responce
+
+Status 204
+
+###### Errors
+
+Incorrect arguments: status 422
+
+
+#### GET /customers/:id
+
+Returns active watches count for given customer.
+
+###### Responce
+
+    {
+      "watches": 15
+    }
+
+
+#### GET /videos/:id
+
+Returns active watches count for given video.
+
+###### Responce
+
+    {
+      "watches": 15
+    }
+
+
+## Available storages
+
+Currently service knows how to work only with **SQLite** database and internal **in-memory storage**. You probably don't want to use either of them in production, so you can write your own storage adapter to any DB of your choice. Description of required storage adapter interface can be found [here](blob/master/spec/support/adapters_shared.rb), implementation is up to you.
+
 
 ## Contributing
 

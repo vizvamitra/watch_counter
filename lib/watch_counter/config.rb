@@ -3,7 +3,7 @@ module WatchCounter
 
     DEFAULT = {
       storage: {
-        adapter: 'sqlite',
+        adapter: 'memory',
         stale_interval: 6
       },
       http_server: {

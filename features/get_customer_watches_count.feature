@@ -4,7 +4,7 @@ Feature: getting active watches count for particular customer
   I want to be able to get active watches count for particular customer
 
   Background:
-    Given I have 3 video watches for customer 1
+    Given customer 1 is currently watching 3 videos
 
   Scenario: I'm getting watches count successfuly
 

@@ -8,7 +8,7 @@ module WatchCounter
 
     def storage
       @storage ||= begin
-        options = @config.storage
+        options = @config.storage.dup
         adapter_string = options.delete(:adapter)
         adapter_classname = adapter_string.split('_').map!(&:capitalize).join
         adapter_class = WatchCounter::StorageAdapter.const_get(adapter_classname)
