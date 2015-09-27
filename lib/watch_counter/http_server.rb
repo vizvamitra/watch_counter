@@ -12,14 +12,6 @@ module WatchCounter
       disable :run
     end
 
-    # TODO: remove this one
-    get '/watches' do
-      customer_id, video_id = params['customer_id'].to_s, params['video_id'].to_s
-      halt 422 if customer_id.empty? || video_id.empty?
-      storage.register_watch(customer_id, video_id)
-      status 204
-    end
-
     post '/watches' do
       customer_id, video_id = params['customer_id'].to_s, params['video_id'].to_s
       halt 422 if customer_id.empty? || video_id.empty?
