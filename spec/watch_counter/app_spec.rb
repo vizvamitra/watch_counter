@@ -13,7 +13,7 @@ describe WatchCounter::App do
 
   describe '#storage' do
     it 'returns instance of storage' do
-      expect(app.storage).to be_instance_of(WatchCounter::Storage::Sqlite)
+      expect(app.storage).to be_instance_of(WatchCounter::StorageAdapter::Sqlite)
     end
   end
   

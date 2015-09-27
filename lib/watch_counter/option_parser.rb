@@ -5,7 +5,7 @@ module WatchCounter
 
     attr_reader :error
 
-    STORAGES = ['sqlite']
+    STORAGES = ['sqlite', 'memory']
 
     def parse args
       options = {storage: {}, http_server: {}}

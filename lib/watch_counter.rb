@@ -5,7 +5,7 @@ require 'puma'
 require 'watch_counter/app'
 require 'watch_counter/config'
 require 'watch_counter/http_server'
-require 'watch_counter/storage'
+require 'watch_counter/storage_adapter'
 require 'watch_counter/version'
 
 module WatchCounter

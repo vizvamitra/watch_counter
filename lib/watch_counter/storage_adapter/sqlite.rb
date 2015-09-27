@@ -1,9 +1,10 @@
 module WatchCounter
-  module Storage
+  module StorageAdapter
     class Sqlite
 
       DEFAULT_STALE_INTERVAL = 10 # seconds
       DEFAULT_DATABASE_PATH = ':memory:'
+      CLEANUP_INTERVAL = 60
 
       attr_reader :options
 
@@ -12,7 +13,7 @@ module WatchCounter
           stale_interval: options[:stale_interval] || DEFAULT_STALE_INTERVAL,
           database_path: options[:database_path] || DEFAULT_DATABASE_PATH
         }
-        start_cleanup_task
+        start_cleanup_task!
       end
 
       def get_watches_for_customer(customer_id)
@@ -52,7 +53,7 @@ module WatchCounter
           end
         end
 
-        def start_cleanup_task
+        def start_cleanup_task!
           Thread.start do
             remove_old_records_query = db.prepare(<<-SQL)
               DELETE
@@ -61,7 +62,7 @@ module WatchCounter
             SQL
             while true do
               remove_old_records_query.execute(Time.now - @options[:stale_interval])
-              sleep 60
+              sleep CLEANUP_INTERVAL
             end
           end
         end

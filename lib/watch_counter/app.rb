@@ -11,7 +11,7 @@ module WatchCounter
         options = @config.storage
         adapter_string = options.delete(:adapter)
         adapter_classname = adapter_string.split('_').map!(&:capitalize).join
-        adapter_class = WatchCounter::Storage.const_get(adapter_classname)
+        adapter_class = WatchCounter::StorageAdapter.const_get(adapter_classname)
         adapter_class.new(options)
       end
     end
