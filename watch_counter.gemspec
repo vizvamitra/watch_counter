@@ -29,6 +29,7 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency "sinatra"
   spec.add_runtime_dependency "sqlite3"
+  spec.add_runtime_dependency "puma"
 
   spec.add_development_dependency "bundler", "~> 1.9"
   spec.add_development_dependency "rake", "~> 10.0"

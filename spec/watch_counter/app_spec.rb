@@ -10,8 +10,14 @@ describe WatchCounter::App do
       expect(app.config).to eq config
     end
   end
+
+  describe '#storage' do
+    it 'returns instance of storage' do
+      expect(app.storage).to be_instance_of(WatchCounter::Storage::Sqlite)
+    end
+  end
   
-  describe 'start' do
+  describe '#start' do
     it 'starts web app' do
       expect(WatchCounter::HttpServer).to receive(:run!)
       app.start

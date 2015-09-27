@@ -4,10 +4,15 @@ lib = File.expand_path(File.dirname(__FILE__) + '/../lib')
 $LOAD_PATH.unshift(lib) if File.directory?(lib) && !$LOAD_PATH.include?(lib)
 
 require 'watch_counter'
+require 'watch_counter/option_parser'
 
-WatchCounter.config = WatchCounter::Config.new(
-  storage: WatchCounter::SqliteMemoryStorage,
-  bind: 'localhost',
-  port: '4567'
-)
-WatchCounter.app.start
+parser = WatchCounter::OptionParser.new
+options = parser.parse(ARGV)
+
+if parser.has_errors?
+  $stderr.puts parser.error
+  exit 1
+else
+  WatchCounter.configure(options)
+  WatchCounter.app.start
+end

@@ -3,7 +3,7 @@ module WatchCounter
 
     helpers do
       def storage
-        WatchCounter.app.config.storage.instance
+        WatchCounter.app.storage
       end
     end
 

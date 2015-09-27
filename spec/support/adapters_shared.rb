@@ -1,17 +1,8 @@
 shared_examples 'storage adapter' do
-  
-  # gettings a new clean instance of singleton for each example
-  let(:dummy_class){ Class.new(described_class) }
-  let(:storage){dummy_class.instance}
-
 
   describe 'interface' do
-    it 'has integer constant STALE_INTERVAL' do
-      expect(described_class::STALE_INTERVAL).to be_a(Integer)
-    end
-
-    it 'responds to ::instance method' do
-      expect(described_class).to respond_to(:instance)
+    it 'responds to #options method' do
+      expect(storage).to respond_to(:options)
     end
 
     it "responds to #get_watches_for_customer method" do
@@ -24,12 +15,6 @@ shared_examples 'storage adapter' do
 
     it "responds to #register_watch method" do
       expect(storage).to respond_to(:register_watch)
-    end
-
-    describe '::instance' do
-      it "returns instance of #{described_class.name}" do
-        expect( described_class.instance ).to be_instance_of described_class
-      end
     end
 
     describe '#get_watches_for_customer' do
@@ -115,12 +100,12 @@ shared_examples 'storage adapter' do
       expect(storage.get_watches_for_customer(1)).to eq 1
     end
 
-    it 'forgets stale watches after STALE_INTERVAL seconds' do
+    it 'forgets stale watches' do
       id_sets.each{|cid, vid| storage.register_watch(cid, vid) }
       expect(storage.get_watches_for_customer(0)).to eq 3
       expect(storage.get_watches_for_video(0)).to eq 2
 
-      Timecop.travel(@freeze_time + described_class::STALE_INTERVAL)
+      Timecop.travel(@freeze_time + storage.options[:stale_interval])
       expect(storage.get_watches_for_customer(0)).to eq 0
       expect(storage.get_watches_for_video(0)).to eq 0
     end

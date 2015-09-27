@@ -6,8 +6,18 @@ module WatchCounter
       @config = config
     end
 
+    def storage
+      @storage ||= begin
+        options = @config.storage
+        adapter_string = options.delete(:adapter)
+        adapter_classname = adapter_string.split('_').map!(&:capitalize).join
+        adapter_class = WatchCounter::Storage.const_get(adapter_classname)
+        adapter_class.new(options)
+      end
+    end
+
     def start
-      HttpServer.run!(bind: @config.bind, port: @config.port)
+      HttpServer.run!(@config.http_server)
     end
   end
 end

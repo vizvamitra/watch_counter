@@ -4,13 +4,6 @@ ENV['RACK_ENV'] = 'test'
 
 require File.join(File.dirname(__FILE__), '..', '..', 'lib/watch_counter.rb')
 
-WatchCounter.config = WatchCounter::Config.new(
-  storage: WatchCounter::SqliteMemoryStorage,
-  bind: 'localhost',
-  port: '4567'
-)
-WatchCounter.app
-
 require 'capybara'
 require 'capybara/cucumber'
 require 'rspec'
