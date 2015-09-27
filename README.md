@@ -91,6 +91,12 @@ Returns active watches count for given video.
 
 Currently service knows how to work only with **SQLite** database and internal **in-memory storage**. You probably don't want to use either of them in production, so you can write your own storage adapter to any DB of your choice. Description of required storage adapter interface can be found [here](blob/master/spec/support/adapters_shared.rb), implementation is up to you.
 
+## TODO
+
+- Add aditional storage adapters, to Redis for example
+- Add security mechanism
+- Write RDoc comments for al classes
+
 
 ## Contributing
 
@@ -99,3 +105,9 @@ Currently service knows how to work only with **SQLite** database and internal *
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
+
+## Contacts
+
+You can contact me via email: <vizvamitra@gmail.com>. Feel free to make pull requests or create issues)
+
+Dmitrii Krasnov
