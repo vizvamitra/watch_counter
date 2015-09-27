@@ -3,7 +3,7 @@ module WatchCounter
 
     helpers do
       def storage
-        WatchCounter::Settings.get(:storage)
+        WatchCounter.app.config.storage.instance
       end
     end
 
@@ -17,7 +17,7 @@ module WatchCounter
       customer_id, video_id = params['customer_id'].to_s, params['video_id'].to_s
       halt 422 if customer_id.empty? || video_id.empty?
       storage.register_watch(customer_id, video_id)
-      storage.get_db.to_json
+      status 204
     end
 
     post '/watches' do
@@ -28,12 +28,12 @@ module WatchCounter
     end
 
     get '/customers/:id' do
-      count = storage.get_video_count_for(params['id'])
+      count = storage.get_watches_for_customer(params['id'])
       "{\"watches\": #{count}}"
     end
 
     get '/videos/:id' do
-      count = storage.get_customer_count_for(params['id'])
+      count = storage.get_watches_for_video(params['id'])
       "{\"watches\": #{count}}"
     end
 

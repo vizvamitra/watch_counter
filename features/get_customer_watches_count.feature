@@ -1,7 +1,7 @@
-Feature: getting watches count for particular customer
+Feature: getting active watches count for particular customer
 
   As an API user
-  I want to be able to get watches count for particular customer
+  I want to be able to get active watches count for particular customer
 
   Background:
     Given I have 3 video watches for customer 1

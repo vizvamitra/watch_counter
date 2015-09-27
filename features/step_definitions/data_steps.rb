@@ -1,5 +1,5 @@
 Given(/^I have (\d+) video watches for customer (\d+)$/) do |watches_count, customer_id|
-  storage = WatchCounter::Settings.get(:storage)
+  storage = WatchCounter.app.config.storage.instance
   watches_count.to_i.times do |i|
     storage.register_watch(customer_id, i+1)
   end

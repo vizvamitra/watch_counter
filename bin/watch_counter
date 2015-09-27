@@ -5,5 +5,9 @@ $LOAD_PATH.unshift(lib) if File.directory?(lib) && !$LOAD_PATH.include?(lib)
 
 require 'watch_counter'
 
-app = WatchCounter::App.new
-app.start
+WatchCounter.config = WatchCounter::Config.new(
+  storage: WatchCounter::SqliteMemoryStorage,
+  bind: 'localhost',
+  port: '4567'
+)
+WatchCounter.app.start
