@@ -1,5 +1,7 @@
 # WatchCounter
 
+[![Code Climate](https://codeclimate.com/github/vizvamitra/watch_counter/badges/gpa.svg)](https://codeclimate.com/github/vizvamitra/watch_counter)
+
 This gem is my solution for the test task given to me during job placement. Full text of the task (in russian) can be found [here](https://github.com/vizvamitra/watch_counter/wiki/Task-definition).
 
 WatchCounter is a microservice that can help you to count active watches of your videos. It was developed to do three things:
