@@ -50,7 +50,7 @@ describe WatchCounter::OptionParser do
 
       it 'sets storage => stale_interval option' do
         parsed = parser.parse(args)
-        expect( parsed[:storage][:stale_interval] ).to eq args[1]
+        expect( parsed[:storage][:stale_interval] ).to eq args[1].to_i
       end
     end
 
