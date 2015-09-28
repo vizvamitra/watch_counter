@@ -21,6 +21,8 @@ Service will store information about watches only for a short period of time (6 
   - [GET /videos/:id](#get-videos-id)
 - [Available storages](#available-storages)
 - [TODOS](#todos)
+- [Implementation notes](#implementation-notes)
+  - [In-memory storage implementation](#in-memory-storage-implementation)
 - [Contributing](#contributing)
 - [Contacts](#contacts)
 
@@ -116,6 +118,29 @@ Currently service knows how to work only with **SQLite** database and internal *
 - Write RDoc comments for al classes
 - Add statistics
 
+## Implementation notes
+
+There are two major parts in working service: **storage** and **WatchCounter::HttpServer**. Storage is responsible for data persistance while HttpServer serves API.
+
+**WatchCounter::App** class is a representation of service. It aggregates storage and starts HttpService. 
+
+**WatchCounter** module initializes and holds the only instance of App and also provides interface to configure service.
+
+Storage mechanism may vary depending on chosen storage adapter. Currently gem supports in-memory storage and SQLite.
+
+#### In-memory storage implementation
+
+Source code for in-memory storage adapter can be found [here](lib/watch_counter/storage/memory.rb), implementation of the in-memory database is [here](lib/watch_counter/storage/memory/database.rb).
+
+Internally data is stored within array where each record is a hash. Format of that hash is `{timestamp: Time, customer_id: String, video_id: String}`. 
+
+According to the task definition, in each moment we want to work only with a small actual subset of records while older ones can be safely removed.
+
+Each new record is added to the end of data array. Furthermore, the timestamp of each new record is greater or equal to the previous one, so **data array is sorted** by timestamp for free, just due to the nature of data. This allows us to use **binary search** to find records by timestamp. But what we realy need is to find an index of a record being a border between aclual and out-of-date records.
+
+Here is the expression to find desired index: `(0..data.size-1).bsearch{|i| data[i][:timestamp] >= timestamp}`. Usage of Ruby's `Range#bsearch` allows us to avoid memory allocation for the whole range while search is log(n)-quick.
+
+When the have the border index we can quickly get actual records. Now to get active watches count for a video/customer we need to count actual records with corresponding video_id/customer_id and database cleanup is as simple as `data = actual_records`.
 
 ## Contributing
 

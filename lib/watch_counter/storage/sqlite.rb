@@ -1,5 +1,5 @@
 module WatchCounter
-  module StorageAdapter
+  module Storage
     class Sqlite
 
       DEFAULT_STALE_INTERVAL = 10 # seconds

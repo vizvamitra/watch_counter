@@ -1,10 +1,11 @@
 module WatchCounter
-  module StorageAdapter
+  module Storage
     class Memory
 
-      CLEANUP_INTERVAL = 60 # seconds
-
       class Database
+        
+        CLEANUP_INTERVAL = 60 # seconds
+
         def initialize stale_interval
           @stale_interval = stale_interval
           @records = []

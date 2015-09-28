@@ -1,7 +1,7 @@
-require 'watch_counter/storage_adapter/memory/database'
+require 'watch_counter/storage/memory/database'
 
 module WatchCounter
-  module StorageAdapter
+  module Storage
     class Memory
 
       DEFAULT_STALE_INTERVAL = 10 # seconds
