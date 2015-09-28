@@ -1,6 +1,6 @@
 # WatchCounter
 
-This gem is my solution for the test task given to me during job placement. Full text of the task (in russian) can be found [here](wiki/task-definition).
+This gem is my solution for the test task given to me during job placement. Full text of the task (in russian) can be found [here](https://github.com/vizvamitra/watch_counter/wiki/Task-definition).
 
 WatchCounter is a microservice that can help you to count active watches of your videos. It was developed to do three things:
 
@@ -67,18 +67,18 @@ A place to send watch events.
 
 ###### Arguments
 
-|    Argument |       Example | Required |
+|    Argument |      Examples | Required |
 | ----------- | ------------- | -------- |
 | customer_id | 5, customer_6 | Required |
 |    video_id |   3, video_15 | Required |
 
 **customer_id** and **video_id** may be either integers or strings.
 
-###### Responce
+###### Responce:
 
 Status 204
 
-###### Errors
+###### Errors:
 
 Incorrect arguments: status 422
 
@@ -87,7 +87,7 @@ Incorrect arguments: status 422
 
 Returns active watches count for given customer.
 
-###### Responce
+###### Responce:
 
     {
       "watches": 15
@@ -98,7 +98,7 @@ Returns active watches count for given customer.
 
 Returns active watches count for given video.
 
-###### Responce
+###### Responce:
 
     {
       "watches": 15
@@ -107,7 +107,7 @@ Returns active watches count for given video.
 
 ## Available storages
 
-Currently service knows how to work only with **SQLite** database and internal **in-memory storage**. You probably don't want to use either of them in production, so you can write your own storage adapter to any DB of your choice. Description of required storage adapter interface can be found [here](blob/master/spec/support/adapters_shared.rb), implementation is up to you.
+Currently service knows how to work only with **SQLite** database and internal **in-memory storage**. You probably don't want to use either of them in production, so you can write your own storage adapter to any DB of your choice. Description of required storage adapter interface can be found [here](spec/support/adapters_shared.rb), implementation is up to you.
 
 ## TODOS
 
@@ -119,7 +119,7 @@ Currently service knows how to work only with **SQLite** database and internal *
 
 ## Contributing
 
-1. Fork it ( https://github.com/[my-github-username]/watch_counter/fork )
+1. Fork it ( https://github.com/vizvamitra/watch_counter/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
