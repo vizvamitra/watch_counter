@@ -38,7 +38,7 @@ module WatchCounter
         opts.on("-t", "--stale-interval SECONDS", 
                 "Interval of time to remember watches",
                 "  Default: 6") do |interval|
-          options[:storage][:stale_interval] = interval
+          options[:storage][:stale_interval] = interval.to_i
         end
 
         opts.separator ""
