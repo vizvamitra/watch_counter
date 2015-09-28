@@ -10,6 +10,20 @@ WatchCounter is a microservice that can help you to count active watches of your
 
 Service will store information about watches only for a short period of time (6 seconds by default), so you will need to continuously send messages to this service to indicate that video is still being watched.
 
+## Table of contents
+
+- [Installation](#installation)
+- [How to start a server](#how-to-start-a-server)
+- [Usage](#usage)
+- [API](#api)
+  - [POST /watches](#post-watches)
+  - [GET /customers/:id](#get-customers-id)
+  - [GET /videos/:id](#get-videos-id)
+- [Available storages](#available-storages)
+- [TODOS](#todos)
+- [Contributing](#contributing)
+- [Contacts](#contacts)
+
 ## Installation
 
     git clone git@github.com:vizvamitra/watch_counter.git
@@ -17,7 +31,11 @@ Service will store information about watches only for a short period of time (6 
     gem build watch_counter.gemspec
     gem install watch_counter-0.1.0.gem
 
-## How to start server
+## How to start a server
+
+    RACK_ENV=production watch_counter
+
+## Usage
 
     Usage: watch_counter [options]
 
@@ -91,11 +109,12 @@ Returns active watches count for given video.
 
 Currently service knows how to work only with **SQLite** database and internal **in-memory storage**. You probably don't want to use either of them in production, so you can write your own storage adapter to any DB of your choice. Description of required storage adapter interface can be found [here](blob/master/spec/support/adapters_shared.rb), implementation is up to you.
 
-## TODO
+## TODOS
 
 - Add aditional storage adapters, to Redis for example
 - Add security mechanism
 - Write RDoc comments for al classes
+- Add statistics
 
 
 ## Contributing
