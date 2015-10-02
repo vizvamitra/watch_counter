@@ -71,7 +71,7 @@ shared_examples 'storage adapter' do
 
 
   describe 'behavior' do
-    let(:id_sets){ [[0, 0], [0, 1], [0, 2], [1, 0]] }
+    let(:id_sets){ [[0, 0], [0, 1], [0, 2], [0, 0], [1, 0]] }
 
     around(:each) do |example|
       @freeze_time = Time.now

@@ -15,11 +15,19 @@ module WatchCounter
       end
 
       def get_watches_for_customer(customer_id)
-        db.actual_records.select{|r| r[:customer_id] == customer_id.to_s}.count
+        videos = Hash.new(0)
+        db.actual_records.each do |r|
+          videos[r[:video_id]] += 1 if r[:customer_id] == customer_id.to_s
+        end
+        videos.count
       end
 
       def get_watches_for_video(video_id)
-        db.actual_records.select{|r| r[:video_id] == video_id.to_s}.count
+        customers = Hash.new(0)
+        db.actual_records.each do |r|
+          customers[r[:customer_id]] += 1 if r[:video_id] == video_id.to_s
+        end
+        customers.count
       end
 
       def register_watch(customer_id, video_id)
