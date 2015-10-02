@@ -124,7 +124,7 @@ Currently service knows how to work only with **SQLite** database and internal *
 
 There are two major parts in working service: **storage** and **WatchCounter::HttpServer**. Storage is responsible for data persistance while HttpServer serves API.
 
-**WatchCounter::App** class is a representation of service. It aggregates storage and starts HttpService. 
+**WatchCounter::App** class is a representation of service. It aggregates storage and starts HttpServer. 
 
 **WatchCounter** module initializes and holds the only instance of App and also provides interface to configure service.
 
@@ -142,7 +142,7 @@ Each new record is added to the end of data array. Furthermore, the timestamp of
 
 Here is the expression to find desired index: `(0..data.size-1).bsearch{|i| data[i][:timestamp] >= timestamp}`. Usage of Ruby's `Range#bsearch` allows us to avoid memory allocation for the whole range while search is log(n)-quick.
 
-When the have the border index we can quickly get actual records. Now to get active watches count for a video/customer we need to count actual records with corresponding video_id/customer_id and database cleanup is as simple as `data = actual_records`.
+When we have the border index we can quickly get actual records. Now to get active watches count for a video/customer we need to count actual records with corresponding video_id/customer_id and database cleanup is as simple as `data = actual_records`.
 
 ## Contributing
 
