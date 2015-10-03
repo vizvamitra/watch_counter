@@ -15,19 +15,11 @@ module WatchCounter
       end
 
       def get_watches_for_customer(customer_id)
-        videos = Hash.new(0)
-        db.actual_records.each do |r|
-          videos[r[:video_id]] += 1 if r[:customer_id] == customer_id.to_s
-        end
-        videos.count
+        unique_records_count{|r| r[:customer_id] == customer_id.to_s}
       end
 
       def get_watches_for_video(video_id)
-        customers = Hash.new(0)
-        db.actual_records.each do |r|
-          customers[r[:customer_id]] += 1 if r[:video_id] == video_id.to_s
-        end
-        customers.count
+        unique_records_count{|r| r[:video_id] == video_id.to_s}
       end
 
       def register_watch(customer_id, video_id)
@@ -43,6 +35,14 @@ module WatchCounter
 
         def db
           @db ||= Database.new(@options[:stale_interval])
+        end
+
+        def unique_records_count &block
+          unique_records = Set.new
+          db.actual_records.each do |r|
+            unique_records << "#{r[:customer_id]}_#{r[:video_id]}" if block.call(r)
+          end
+          unique_records.count
         end
 
     end
