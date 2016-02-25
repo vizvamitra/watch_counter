@@ -12,6 +12,8 @@ WatchCounter is a microservice that can help you to count active watches of your
 
 Service will store information about watches only for a short period of time (6 seconds by default), so you will need to continuously send messages to this service to indicate that video is still being watched.
 
+Please note that the task demands to use inmemory storage, but suggests to provide an ability to easily replace it an with external storage using adapter pattern.
+
 ## Table of contents
 
 - [Installation](#installation)
